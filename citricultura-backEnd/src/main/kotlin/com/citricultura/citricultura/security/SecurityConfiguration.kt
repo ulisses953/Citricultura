@@ -38,43 +38,44 @@ class SecurityConfiguration {
                         "/swagger-ui.html",
                         "/public"
                     ).permitAll()
-                    .anyRequest().authenticated()
+//                    .anyRequest().authenticated()
+                    .anyRequest().permitAll()
             }
             .cors { corsConfig -> corsConfig.configurationSource(corsConfigurationSource()) }
 
         return http.build()
     }
 
-    @Bean
-    fun userDetailsService(userRepository: UserRepository): UserDetailsService = UserDetailsService { username ->
-        val user = userRepository.findByEmail(username)
-            ?: throw UsernameNotFoundException("Usuário não encontrado: $username")
-
-        val authorities = listOf(SimpleGrantedAuthority("ROLE_${user.role.name}"))
-
-        User(user.email, user.password, authorities)
-    }
-
-
 //    @Bean
-//    fun UserDetailsService(passwordEncoder: PasswordEncoder): UserDetailsService {
+//    fun userDetailsService(userRepository: UserRepository): UserDetailsService = UserDetailsService { username ->
+//        val user = userRepository.findByEmail(username)
+//            ?: throw UsernameNotFoundException("Usuário não encontrado: $username")
 //
-//        val user: UserDetails =
-//            User.builder()
-//                .username("user")
-//                .password(passwordEncoder.encode("senha123"))
-//                .roles("USER")
-//                .build()
+//        val authorities = listOf(SimpleGrantedAuthority("ROLE_${user.role.name}"))
 //
-//        val admin: UserDetails =
-//            User.builder()
-//                .username("admin")
-//                .password(passwordEncoder.encode("admin123"))
-//                .roles("USER", "ADMIN")
-//                .build()
-//
-//        return InMemoryUserDetailsManager(user, admin)
+//        User(user.email, user.password, authorities)
 //    }
+
+
+    @Bean
+    fun UserDetailsService(passwordEncoder: PasswordEncoder): UserDetailsService {
+
+        val user: UserDetails =
+            User.builder()
+                .username("user")
+                .password(passwordEncoder.encode("senha123"))
+                .roles("USER")
+                .build()
+
+        val admin: UserDetails =
+            User.builder()
+                .username("admin")
+                .password(passwordEncoder.encode("admin123"))
+                .roles("USER", "ADMIN")
+                .build()
+
+        return InMemoryUserDetailsManager(user, admin)
+    }
 
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {

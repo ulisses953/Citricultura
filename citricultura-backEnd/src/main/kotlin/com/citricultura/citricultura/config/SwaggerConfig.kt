@@ -16,7 +16,7 @@ class SwaggerConfig {
             .info(
                 Info()
                     .title("Citricultura API")
-                    .description("Documentação da API Citricultura com autenticação JWT Bearer.")
+                    .version("1.0")
             )
             .addSecurityItem(SecurityRequirement().addList(securitySchemeName))
             .components(
@@ -31,3 +31,4 @@ class SwaggerConfig {
             )
     }
 }
+

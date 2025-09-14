@@ -7,15 +7,18 @@ import java.time.LocalDate
 class Harvest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null
+    var id: Long? = null
 
-    val date: LocalDate = LocalDate.now()
+    var date: LocalDate = LocalDate.now()
 
-    val box: Int = 0
+    var box: Int = 0
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "terrain_id")
-    val terrain: Terrain? = null
+    var terrain: Terrain? = null
 
+    @ManyToOne
+    @JoinColumn(name = "fruit_id")
+    var fruit : Fruit? = null
 
 }

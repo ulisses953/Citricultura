@@ -6,12 +6,15 @@ import jakarta.persistence.*
 class Terrain {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null
+    var id: Long? = null
 
-    val name: String = ""
+    var name: String = ""
 
-    @ManyToMany(mappedBy = "terrains")
-    val users: MutableList<User> = mutableListOf()
+    var size: Double = 0.0
+
+    var location: String = ""
+
+    var  LeaseValue : Double = 0.0
 
 
 }
