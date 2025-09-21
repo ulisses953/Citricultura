@@ -30,7 +30,6 @@ class SecurityConfiguration {
             .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter::class.java)
             .authorizeHttpRequests { auth ->
                 auth
-                    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                     .requestMatchers(
                         "/api/auth/**",
                         "/v3/api-docs/**",

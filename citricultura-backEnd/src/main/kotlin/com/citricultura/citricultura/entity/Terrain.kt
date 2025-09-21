@@ -1,5 +1,6 @@
 package com.citricultura.citricultura.entity
 
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import jakarta.persistence.*
 
 @Entity
@@ -14,7 +15,7 @@ class Terrain {
 
     var location: String = ""
 
-    var  LeaseValue : Double = 0.0
-
+    @Column(name = "lease_value")
+    var leaseValue: Double = 0.0
 
 }

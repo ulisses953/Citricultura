@@ -1,5 +1,6 @@
 package com.citricultura.citricultura.entity
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import jakarta.persistence.*
 import java.time.LocalDate
 
