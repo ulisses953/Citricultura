@@ -79,7 +79,12 @@ class SecurityConfiguration {
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
         val corsConfiguration = CorsConfiguration()
-        corsConfiguration.allowedOrigins = listOf("*")
+        // Use explicit origins or origin patterns when allowCredentials = true
+        corsConfiguration.allowedOriginPatterns = listOf(
+            "http://localhost:*",
+            "http://127.0.0.1:*",
+            "http://[::1]:*"
+        )
         corsConfiguration.allowedMethods = listOf("GET", "POST", "PUT", "DELETE", "OPTIONS")
         corsConfiguration.allowedHeaders = listOf("*")
         corsConfiguration.allowCredentials = true

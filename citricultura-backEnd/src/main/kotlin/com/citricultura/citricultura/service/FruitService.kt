@@ -2,7 +2,8 @@ package com.citricultura.citricultura.service
 
 import com.citricultura.citricultura.entity.Fruit
 import com.citricultura.citricultura.repository.FruitRepository
-import com.citricultura.citricultura.dto.FruitDTO
+import com.citricultura.citricultura.dto.FruitDTORequest
+import com.citricultura.citricultura.dto.FruitDTOResponse
 import com.citricultura.citricultura.mapper.FruitMapper
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -14,34 +15,29 @@ class FruitService(
     private val fruitMapper: FruitMapper
 ) {
 
-    fun findAllFruitDtos(): List<FruitDTO> {
-        val entities = fruitRepository.findAll()
-        return fruitMapper.toDtoList(entities)
+    fun findAll(pageable: Pageable): Page<FruitDTOResponse> {
+       return fruitRepository.findAll(pageable).map { fruitMapper.toResponse(it) }
     }
 
-    fun saveFruit(fruitDTO: FruitDTO): FruitDTO {
-        val entity: Fruit = fruitMapper.toEntity(fruitDTO)
+    fun saveFruit(fruitDTORequest: FruitDTORequest): FruitDTOResponse {
+        val entity = fruitMapper.toEntity(fruitDTORequest)
 
-        val savedEntity = fruitRepository.save(entity)
+        val savedEntity: Fruit = fruitRepository.save(entity)
 
-        return fruitMapper.toDto(savedEntity)
+        return fruitMapper.toResponse(savedEntity)
     }
 
     fun deleteFruitById(id: Long) {
         fruitRepository.deleteById(id)
     }
 
-    fun findFruitById(id: Long): FruitDTO? {
+    fun findFruitById(id: Long): FruitDTOResponse? {
         val entity = fruitRepository.findById(id)
 
         if (entity.isEmpty)
             return null
 
-        return fruitMapper.toDto(entity.get())
-    }
-
-    fun findAll(pageable: Pageable): Page<FruitDTO> {
-        return fruitRepository.findAll(pageable).map { fruitMapper.toDto(it) }
+        return fruitMapper.toResponse(entity.get())
     }
 
 

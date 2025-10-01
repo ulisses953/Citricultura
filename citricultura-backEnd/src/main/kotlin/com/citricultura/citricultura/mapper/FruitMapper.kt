@@ -1,14 +1,19 @@
 package com.citricultura.citricultura.mapper
 
-import com.citricultura.citricultura.dto.FruitDTO
+import com.citricultura.citricultura.dto.FruitDTORequest
+import com.citricultura.citricultura.dto.FruitDTOResponse
 import com.citricultura.citricultura.entity.Fruit
 import org.mapstruct.Mapper
+import org.mapstruct.Mapping
+import org.mapstruct.ReportingPolicy
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 interface FruitMapper {
-    fun toDto(entity: Fruit): FruitDTO
 
-    fun toEntity(dto: FruitDTO): Fruit
 
-    fun toDtoList(entities: List<Fruit>): List<FruitDTO>
+    @Mapping(target = "id", ignore = true)
+    fun toEntity(fruitDTORequest: FruitDTORequest): Fruit
+
+    fun toResponse(fruit: Fruit): FruitDTOResponse
+
 }

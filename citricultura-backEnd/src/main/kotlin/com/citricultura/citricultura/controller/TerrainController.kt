@@ -1,12 +1,14 @@
 package com.citricultura.citricultura.controller
 
-import com.citricultura.citricultura.dto.TerrainDto
+import com.citricultura.citricultura.dto.TerrainDtoRequest
+import com.citricultura.citricultura.dto.TerrainDtoResponse
 import com.citricultura.citricultura.service.TerrainService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController
 class TerrainController(private val terrainservice: TerrainService) {
 
     @PostMapping
-    fun save(terrainDto: TerrainDto): ResponseEntity<TerrainDto> {
+    fun save(@RequestBody terrainDto: TerrainDtoRequest): ResponseEntity<TerrainDtoResponse> {
         val savedTerrain = terrainservice.save(terrainDto)
 
         return ResponseEntity
@@ -24,7 +26,7 @@ class TerrainController(private val terrainservice: TerrainService) {
     }
 
     @GetMapping
-    fun findAll(pageable: Pageable): ResponseEntity<Page<TerrainDto>> {
+    fun findAll(pageable: Pageable): ResponseEntity<Page<TerrainDtoResponse>> {
         val terrains = terrainservice.findAll(pageable)
         return ResponseEntity
             .ok()

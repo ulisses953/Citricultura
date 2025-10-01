@@ -1,6 +1,7 @@
 package com.citricultura.citricultura.service
 
-import com.citricultura.citricultura.dto.TerrainDto
+import com.citricultura.citricultura.dto.TerrainDtoRequest
+import com.citricultura.citricultura.dto.TerrainDtoResponse
 import com.citricultura.citricultura.mapper.TerrainMapper
 import com.citricultura.citricultura.repository.TerrainRepository
 import org.springframework.data.domain.Page
@@ -13,15 +14,16 @@ class TerrainService(
     private val terrainMapper: TerrainMapper
 ) {
 
-    fun save(terrainDto: TerrainDto): TerrainDto {
-        val entity = terrainMapper.toEntity(terrainDto)
+    fun save(terrainDtoRequest: TerrainDtoRequest): TerrainDtoResponse {
+        val entity = terrainMapper.toEntity(terrainDtoRequest)
 
         val savedEntity = terrainRepository.save(entity)
 
         return terrainMapper.toDto(savedEntity)
     }
 
-    fun findAll(pageable: Pageable): Page<TerrainDto>{
+    fun findAll(pageable: Pageable): Page<TerrainDtoResponse>{
         return terrainRepository.findAll(pageable).map { terrainMapper.toDto(it) }
     }
+
 }

@@ -1,6 +1,7 @@
 INSERT INTO fruit (name) VALUES ('Bergamota Ponkan');
 INSERT INTO fruit (name) VALUES ('Bergamota Murcott');
 INSERT INTO fruit (name) VALUES ('Bergamota Montenegrina');
+INSERT INTO fruit (name) VALUES ('Bergamota Pareci');
 
 INSERT INTO fruit (name) VALUES ('Laranja Pera');
 INSERT INTO fruit (name) VALUES ('Laranja Bahia (Navel)');

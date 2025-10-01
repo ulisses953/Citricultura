@@ -1,11 +1,11 @@
 package com.citricultura.citricultura.dto
 
-data class AuthDto(
+data class AuthDtoRequest(
     val email: String,
     val password : String
 )
 
-data class AuthResponseDto(
+data class AuthDtoResponse(
     val token: String,
     val refreshToken : String
 )
